@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.srishti.blogapis.exceptions.ResourceNotFoundException;
@@ -84,28 +85,28 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public PostResponse getAllPosts(Integer pageNumber, Integer pageSize) {
-        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+    public PostResponse getAllPosts(Integer pageNumber, Integer pageSize, String sortBy) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         Page<Post> pages = this.postRepo.findAll(pageable);
         PostResponse response = this.getPostResponse(pages);
         return response;
     }
 
     @Override
-    public PostResponse getAllPostsByCategory(Integer categoryId, Integer pageNumber, Integer pageSize) {
+    public PostResponse getAllPostsByCategory(Integer categoryId, Integer pageNumber, Integer pageSize, String sortBy) {
         Category category = this.categoryRepo.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "id", categoryId));
-        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         Page<Post> pages = this.postRepo.findByCategory(category, pageable);
         PostResponse response = this.getPostResponse(pages);
         return response;
     }
 
     @Override
-    public PostResponse getAllPostsByUser(Integer userId, Integer pageNumber, Integer pageSize) {
+    public PostResponse getAllPostsByUser(Integer userId, Integer pageNumber, Integer pageSize, String sortBy) {
         User user = this.userRepo.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
-        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         Page<Post> pages = this.postRepo.findByUser(user, pageable);
         PostResponse response = this.getPostResponse(pages);
         return response;

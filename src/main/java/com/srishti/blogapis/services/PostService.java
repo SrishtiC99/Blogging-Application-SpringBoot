@@ -15,11 +15,11 @@ public interface PostService {
 
     PostDto getPostById(Integer postId);
 
-    PostResponse getAllPosts(Integer pageNumber, Integer pageSize);
+    PostResponse getAllPosts(Integer pageNumber, Integer pageSize, String sortBy);
 
-    PostResponse getAllPostsByCategory(Integer categoryId, Integer pageNumber, Integer pageSize);
+    PostResponse getAllPostsByCategory(Integer categoryId, Integer pageNumber, Integer pageSize, String sortBy);
 
-    PostResponse getAllPostsByUser(Integer userId, Integer pageNumber, Integer pageSize);
+    PostResponse getAllPostsByUser(Integer userId, Integer pageNumber, Integer pageSize, String sortBy);
 
     void deletePost(Integer postId);
 

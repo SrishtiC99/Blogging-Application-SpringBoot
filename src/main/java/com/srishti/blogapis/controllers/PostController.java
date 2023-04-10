@@ -51,22 +51,25 @@ public class PostController {
     @GetMapping("/posts")
     public ResponseEntity<PostResponse> getAllPosts(
         @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-        @RequestParam(value = "pageSize", defaultValue = "5", required = false) Integer pageSize) {
-        return ResponseEntity.ok(this.postService.getAllPosts(pageNumber, pageSize));
+        @RequestParam(value = "pageSize", defaultValue = "5", required = false) Integer pageSize,
+        @RequestParam(value = "sortBy", defaultValue = "dateCreated", required = false) String sortBy) {
+        return ResponseEntity.ok(this.postService.getAllPosts(pageNumber, pageSize, sortBy));
     }
 
     @GetMapping("/user/{userId}/posts")
     public ResponseEntity<PostResponse> getAllPostsByUser(@PathVariable Integer userId, 
             @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-            @RequestParam(value = "pageSize", defaultValue = "5", required = false) Integer pageSize) {
-        return ResponseEntity.ok(this.postService.getAllPostsByUser(userId, pageNumber, pageSize));
+            @RequestParam(value = "pageSize", defaultValue = "5", required = false) Integer pageSize,
+            @RequestParam(value = "sortBy", defaultValue = "dateCreated", required = false) String sortBy) {
+        return ResponseEntity.ok(this.postService.getAllPostsByUser(userId, pageNumber, pageSize, sortBy));
     }
 
     @GetMapping("/category/{categoryId}/posts")
     public ResponseEntity<PostResponse> getAllPostsByCategory(@PathVariable Integer categoryId, 
             @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-            @RequestParam(value = "pageSize", defaultValue = "5", required = false) Integer pageSize) {
-        return ResponseEntity.ok(this.postService.getAllPostsByCategory(categoryId, pageNumber, pageSize));
+            @RequestParam(value = "pageSize", defaultValue = "5", required = false) Integer pageSize,
+            @RequestParam(value = "sortBy", defaultValue = "dateCreated", required = false) String sortBy) {
+        return ResponseEntity.ok(this.postService.getAllPostsByCategory(categoryId, pageNumber, pageSize, sortBy));
     }
     
     @PutMapping("posts/{postId}")
