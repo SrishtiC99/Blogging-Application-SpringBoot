@@ -1,6 +1,5 @@
 package com.srishti.blogapis.controllers;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.srishti.blogapis.payloads.PostDto;
+import com.srishti.blogapis.payloads.PostResponse;
 import com.srishti.blogapis.services.PostService;
 
 import jakarta.validation.Valid;
@@ -48,18 +49,24 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public ResponseEntity<List<PostDto>> getAllPosts() {
-        return ResponseEntity.ok(this.postService.getAllPosts());
+    public ResponseEntity<PostResponse> getAllPosts(
+        @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
+        @RequestParam(value = "pageSize", defaultValue = "5", required = false) Integer pageSize) {
+        return ResponseEntity.ok(this.postService.getAllPosts(pageNumber, pageSize));
     }
 
     @GetMapping("/user/{userId}/posts")
-    public ResponseEntity<List<PostDto>> getAllPostsByUser(@PathVariable Integer userId) {
-        return ResponseEntity.ok(this.postService.getAllPostsByUser(userId));
+    public ResponseEntity<PostResponse> getAllPostsByUser(@PathVariable Integer userId, 
+            @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = "5", required = false) Integer pageSize) {
+        return ResponseEntity.ok(this.postService.getAllPostsByUser(userId, pageNumber, pageSize));
     }
 
     @GetMapping("/category/{categoryId}/posts")
-    public ResponseEntity<List<PostDto>> getAllPostsByCategory(@PathVariable Integer categoryId) {
-        return ResponseEntity.ok(this.postService.getAllPostsByCategory(categoryId));
+    public ResponseEntity<PostResponse> getAllPostsByCategory(@PathVariable Integer categoryId, 
+            @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = "5", required = false) Integer pageSize) {
+        return ResponseEntity.ok(this.postService.getAllPostsByCategory(categoryId, pageNumber, pageSize));
     }
     
     @PutMapping("posts/{postId}")

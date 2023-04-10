@@ -3,6 +3,7 @@ package com.srishti.blogapis.services;
 import java.util.List;
 
 import com.srishti.blogapis.payloads.PostDto;
+import com.srishti.blogapis.payloads.PostResponse;
 
 public interface PostService {
     
@@ -14,11 +15,11 @@ public interface PostService {
 
     PostDto getPostById(Integer postId);
 
-    List<PostDto> getAllPosts();
+    PostResponse getAllPosts(Integer pageNumber, Integer pageSize);
 
-    List<PostDto> getAllPostsByCategory(Integer categoryId);
+    PostResponse getAllPostsByCategory(Integer categoryId, Integer pageNumber, Integer pageSize);
 
-    List<PostDto> getAllPostsByUser(Integer userId);
+    PostResponse getAllPostsByUser(Integer userId, Integer pageNumber, Integer pageSize);
 
     void deletePost(Integer postId);
 
