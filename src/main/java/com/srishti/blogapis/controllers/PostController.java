@@ -1,5 +1,6 @@
 package com.srishti.blogapis.controllers;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +83,11 @@ public class PostController {
     public ResponseEntity<?> deletePost(@PathVariable Integer postId) {
         this.postService.deletePost(postId);
         return new ResponseEntity<>(Map.of("message", "Post deleted successfully"), HttpStatus.OK);
+    }
+
+    @GetMapping("posts/search/{keywords}")
+    public ResponseEntity<List<PostDto>> searchPostByTitle(@PathVariable("keywords") String keywords) {
+        return ResponseEntity.ok(this.postService.searchPost(keywords));
     }
     
 }

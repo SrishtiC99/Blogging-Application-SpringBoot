@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.srishti.blogapis.models.Category;
 import com.srishti.blogapis.models.Post;
 import com.srishti.blogapis.models.User;
